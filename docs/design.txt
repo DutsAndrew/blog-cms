@@ -1,0 +1,12 @@
+Home Page:
+
+Header:
+
+Logo                                                             Sign Up - Login
+________________________________________________________________________________
+
+
+Home Body: 
+
+If Not Logged in - Welcome to the CMS (Content Management System) for Andrew Dutson's Blog API
+If Logged In - display boxes with these setting: Create Post, Edit Post, Delete Post, and Manage Account
