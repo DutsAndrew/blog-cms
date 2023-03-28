@@ -1,4 +1,5 @@
-import './globals.css'
+import './globals.css';
+import Header from './Header/Header';
 
 export const metadata = {
   title: 'Blog CMS',
@@ -16,12 +17,7 @@ export default function RootLayout({
         <title>Blog CMS</title>
       </head>
       <body>
-        <section>
-          <nav>
-            <p>Sign Up</p>
-            <p>Login</p>
-          </nav>
-        </section>
+        <Header />
         <section>
           {children}
         </section>

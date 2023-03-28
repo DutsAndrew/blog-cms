@@ -1,0 +1,44 @@
+.anvil-svg {
+  max-width: 10vw;
+  max-height: 10vh;
+  filter: invert(6%) sepia(20%) saturate(6345%) hue-rotate(155deg) brightness(92%) contrast(103%);
+}
+
+.header-container {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid black;
+}
+
+.header-logo-container {
+  display: flex;
+  flex: auto;
+  justify-content: center;
+  align-items: center;
+  max-width: 45vw;
+  height: auto;
+  gap: 3vw;
+  font-size: 1.8em;
+}
+
+.header-nav {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.25em;
+  gap: 2vh;
+}
+
+.auth-text {
+  margin: 0;
+  padding: 1vw;
+}
+
+.auth-text:hover {
+  cursor: pointer;
+  transform: scale(0.9);
+  border: 1px solid black;
+}
