@@ -1,4 +1,5 @@
 import anvilSVG from '../../public/anvil.svg';
+import Link from 'next/link';
 
 export default function Header() {
   return (
@@ -14,8 +15,12 @@ export default function Header() {
         </h1>
       </div>
       <nav className="header-nav">
-        <p className="auth-text">Sign Up</p>
-        <p className="auth-text">Login</p>
+        <Link href={`/account/signup`}>
+          <p className="auth-text">Sign Up</p>
+        </Link>
+        <Link href={`/account/login`}>
+          <p className="auth-text">Login</p>
+        </Link>
       </nav>
     </section>
   );
