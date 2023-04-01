@@ -24,7 +24,7 @@ export default function SignUp() {
             data.append('password', (password as HTMLInputElement).value);
             data.append('confirmPassword', (confirmPassword as HTMLInputElement).value);
 
-      const url = (e.target as HTMLFormElement).action;
+      const url = 'https://avd-blog-api.fly.dev/api/signup';
       const sendFormData = await fetch(url, {
         headers: {
           'Accept': 'application/json',
@@ -49,9 +49,6 @@ export default function SignUp() {
       </Link>
       <form 
         className='create-account-form'
-        method='POST'
-        action='https://avd-blog-api.fly.dev/api/signup'
-        encType='application/x-www-form-urlencoded'
         onSubmit={(e) => handleFormSubmission(e)}
       >
         <div className='form-group'>
