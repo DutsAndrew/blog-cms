@@ -1,9 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { FormEvent } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function SignUp() {
+
+  const router = useRouter();
 
   const handleFormSubmission = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,14 +37,18 @@ export default function SignUp() {
         body: data.toString(),
       });
 
-      console.log(sendFormData);
-      const apiResponse = await sendFormData.json();
-      console.log(apiResponse);
+      const response = await sendFormData.json();
+      if (confirm(`${response.message}, email: ${response.strippedUserInformation.email}`) === true) {
+        router.push('/account/login');
+      } else {
+        router.push('/');
+      };
     };
   };
 
   return (
     <section className="signup-container">
+      <h1 className='header-title'>Sign Up</h1>
       <Link href={'/'}>
         <button className="return-btn">
           Return to Home

@@ -1,3 +1,7 @@
+button:hover {
+  cursor: pointer;
+}
+
 .anvil-svg {
   max-width: 10vw;
   max-height: 10vh;

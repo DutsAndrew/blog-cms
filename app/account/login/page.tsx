@@ -1,9 +1,12 @@
 'use client'
 
 import Link from 'next/link';
-import { FormEvent } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function Login() {
+
+  const router = useRouter();
 
   const handleFormSubmission = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -17,7 +20,7 @@ export default function Login() {
             data.append('password', (password as HTMLInputElement).value);
             data.append('confirmPassword', (confirmPassword as HTMLInputElement).value);
 
-      const url = 'https://avd-blog-api.fly.dev/api/login';
+      const url = 'http://localhost:8080/api/login';
       const sendFormData = await fetch(url, {
         headers: {
           'Accept': 'application/json',
@@ -27,14 +30,23 @@ export default function Login() {
         body: data.toString(),
       });
 
-      console.log(sendFormData);
       const apiResponse = await sendFormData.json();
-      console.log(apiResponse);
+
+      const token = apiResponse.token;
+      sessionStorage.setItem("token", token);
+
+      // redirect user back to home page
+      if (confirm(`${apiResponse.message}, You've been logged in`) === true) {
+        router.push('/');
+      } else {
+        sessionStorage.removeItem("token");
+      };
     };
   };
 
   return (
     <section className="login-container">
+      <h1 className='header-title'>Log In</h1>
       <Link href={'/'}>
         <button className="return-btn">
           Return to Home

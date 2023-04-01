@@ -1,6 +1,10 @@
+'use client';
+
 import styles from './page.module.css';
 import uniqid from 'uniqid';
 import Link from 'next/link';
+import Header from './Header/Header';
+import { use, useEffect, useState } from 'react';
 
 export default function Home() {
 
@@ -24,19 +28,21 @@ export default function Home() {
   ];
 
   return (
-    <main className={styles.cmsCardsContainer}>
-      {crudOperations.map((operation) => {
-        return <Link href={`${operation.route}`}>
-          <div 
-            className={styles.operationContainer}
-            key={uniqid()}
-          >
-            <p className={styles.operationText}>
-              {operation.title}
-            </p>
-          </div>
-        </Link>
-      })}
-    </main>
+    <>
+      <Header />
+      <main className={styles.cmsCardsContainer}>
+        {crudOperations.map((operation) => {
+          return <Link key={uniqid()} href={`${operation.route}`}>
+            <div 
+              className={styles.operationContainer}
+            >
+              <p className={styles.operationText}>
+                {operation.title}
+              </p>
+            </div>
+          </Link>
+        })}
+      </main>
+    </>
   )
 }
