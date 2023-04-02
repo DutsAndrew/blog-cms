@@ -21,7 +21,21 @@
   border-radius: 15px;
 }
 
-.operationContainer:hover {
+.notAuthorizedCards {
+  display: flex;
+  flex: auto;
+  justify-content: center;
+  align-items: center;
+  max-width: 40vw;
+  min-width: 20vw;
+  max-height: 40vh;
+  min-height: 20vh;
+  border: 2px solid black;
+  border-radius: 15px;
+  background-color: red;
+}
+
+.operationContainer:hover, .notAuthorizedCards:hover {
   cursor: pointer;
   transform: scale(0.98);
   border: 3px solid black;

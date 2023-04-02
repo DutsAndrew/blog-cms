@@ -14,6 +14,7 @@ const Header = () => {
   });
 
   useEffect(() => {
+    // on header mount check for token and then display the correct header
     checkForToken();
   }, []);
 
