@@ -32,3 +32,42 @@
   padding: 5vh;
   font-size: 1.75em;
 }
+
+/* CREATE POST STYLING */
+
+.enteredTagsContainer {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 5vw;
+}
+
+.tagContainer {
+  min-width: 15vw;
+  max-width: 80vw;
+  min-height: 3vh;
+  max-height: 6vh;
+  display: flex;
+  flex: 1 1 auto;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 1.25em;
+  padding-left: 0.5vw;
+  padding-right: 0.5vw;
+  gap: 0.5vw;
+}
+
+.tagText {
+  margin: 0;
+}
+
+.tagRemove {
+  max-width: 4vw;
+  max-height: 4vh;
+  display: flex;
+  flex: auto;
+}
+
+.tagRemove:hover {
+  cursor: pointer;
+}
