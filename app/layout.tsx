@@ -17,7 +17,7 @@ export default function RootLayout({
         <title>Blog CMS</title>
       </head>
       <body>
-        <section>
+        <section className='section-container'>
           {children}
         </section>
       </body>

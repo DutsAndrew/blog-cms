@@ -6,6 +6,7 @@
   justify-content: center;
   align-items: center;
   gap: 5vw;
+  max-width: 90vw;
 }
 
 .operationContainer {
@@ -84,4 +85,69 @@
 
 .tagRemove:hover {
   cursor: pointer;
+}
+
+/* UPDATE POST STYLING */
+ 
+.updatePostContainer {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+.apiResponseContainer {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  border: 2px solid yellow;
+  margin: 0.5vh;
+  padding: 0.5vh;
+}
+
+.apiHeaderText, .apiMessageText, .apiErrorText {
+  margin: 0;
+}
+
+.postsContainer {
+  width: 80vw;
+  height: auto;
+  overflow-y: scroll;
+  display: flex;
+  flex: 1 1 100%;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+.postContainer {
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+  min-height: 10vh;
+  max-height: 30vh;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid black;
+  overflow: hidden;
+  gap: 4vw;
+}
+
+.postContainer:hover {
+  background-color: yellow;
+  transform: scale(0.999);
+  cursor: pointer;
+}
+
+.postInformationText {
+  font-size: 1.15em;
+}
+
+.postDateAndTime {
+  font-size: 1em;
 }

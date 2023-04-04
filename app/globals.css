@@ -8,6 +8,13 @@ button:hover {
   filter: invert(6%) sepia(20%) saturate(6345%) hue-rotate(155deg) brightness(92%) contrast(103%);
 }
 
+.mainPageContainer {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+}
+
 .header-container {
   display: flex;
   flex-flow: row nowrap;

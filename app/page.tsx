@@ -4,7 +4,7 @@ import styles from './page.module.css';
 import uniqid from 'uniqid';
 import Link from 'next/link';
 import Header from './Header/Header';
-import { use, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
 
@@ -55,7 +55,7 @@ export default function Home() {
 
   if (auth.token === true) {
     return (
-      <>
+      <div className={styles.mainPageContainer}>
         <Header />
         <main className={styles.cmsCardsContainer}>
           {crudOperations.map((operation) => {
@@ -70,11 +70,11 @@ export default function Home() {
             </Link>
           })}
         </main>
-      </>
+      </div>
     );
   } else {
     return (
-      <>
+      <div className={styles.mainPageContainer}>
         <Header />
         <main className={styles.cmsCardsContainer}>
           {crudOperations.map((operation) => {
@@ -89,7 +89,7 @@ export default function Home() {
             </div>
           })}
         </main>
-      </>
+      </div>
     );
   };
-}
+};

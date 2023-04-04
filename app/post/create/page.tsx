@@ -7,8 +7,11 @@ import closeBox from '../../../public/close-box.svg';
 import { TagType } from '@/types/interfaces';
 import Filter from 'bad-words';
 import uniqid from 'uniqid';
+import { useRouter } from 'next/navigation';
 
 export default function CreatePost() {
+
+  const router = useRouter();
 
   const [tags, setTags] = useState<TagType>({
     list: [], 
@@ -59,7 +62,12 @@ export default function CreatePost() {
       });
 
       const response = await sendPost.json();
-      console.log(response);
+      if (!response) {
+        alert('Your post did not upload correctly to our server, please try again later');
+      } else {
+        alert('Your post was successfully uploaded, we are redirecting you back to the home page');
+        router.push('/');
+      };
     };
   };
 
