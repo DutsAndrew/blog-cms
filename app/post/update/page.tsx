@@ -3,8 +3,14 @@
 import { useEffect, useState } from 'react';
 import styles from '../../page.module.css';
 import Link from 'next/link';
-import { UserPostsResponse } from '@/types/interfaces';
-import { UserPostsState } from '@/types/interfaces';
+import UpdatePostForm from '@/app/Components/UpdatePostForm';
+import { 
+  UserPostsResponse,
+  UserPostsState,
+  UpdateRequestedState,
+  Post 
+} from '@/types/interfaces';
+
 
 export default function UpdatePost() {
 
@@ -15,6 +21,11 @@ export default function UpdatePost() {
 
   const [posts, setPosts] = useState<UserPostsState>({
     list: [],
+  });
+
+  const [updateRequested, setUpdateRequested] = useState<UpdateRequestedState>({
+    status: false,
+    post: null,
   });
 
   useEffect(() => {
@@ -72,58 +83,70 @@ export default function UpdatePost() {
     };
   };
 
-  const handlePostClick = (post: UserPostsResponse): void => {
+  const handlePostClick = (post: Post): void => {
     // redirect to a form to update post send post parameter as an argument
+    setUpdateRequested({
+      status: true,
+      post: post,
+    });
   };
 
-  return (
-    <section className={styles.updatePostContainer}>
-      <h1 className={styles.headerTitle}>Update a Post</h1>
-      <Link href={'/'}>
-        <button className="return-btn">
-          Return to Home
-        </button>
-      </Link>
-
-      <div className={styles.apiResponseContainer}>
-        <h1 className={styles.apiHeaderText}>Database Information:</h1>
-        <p className={styles.apiMessageText}>
-          {apiResponse.message}
-        </p>
-        <p className={styles.apiErrorText}>
-          {apiResponse.errors.length !== 0 ? apiResponse.errors.toString() : ''}
-        </p>
-      </div>
-
-      <div className={styles.postsContainer}>
-        {posts.list.map((post) => {
-          return <div 
-            key={post._id} 
-            className={styles.postContainer}
-            onClick={() => {
-              handlePostClick(post);
-            }}
-          >
-            <div className={styles.postInformationText}>
-              <p className={styles.postTitleText}>
-                <strong>Title: </strong>{post.title.length < 50 ? post.title.slice(0, 50) : post.title}
-              </p>
-              <p className={styles.postBodyText}>
-                <em>Body: </em>{post.body.length < 50 ? post.body.slice(0, 50) : post.body}
-              </p>
+  if (updateRequested.status === true) {
+    if (updateRequested.post !== null) {
+      return (
+        <UpdatePostForm post={updateRequested.post} />
+      );
+    };
+  } else {
+    return (
+      <section className={styles.updatePostContainer}>
+        <h1 className={styles.headerTitle}>Update a Post</h1>
+        <Link href={'/'}>
+          <button className="return-btn">
+            Return to Home
+          </button>
+        </Link>
+  
+        <div className={styles.apiResponseContainer}>
+          <h1 className={styles.apiHeaderText}>Database Information:</h1>
+          <p className={styles.apiMessageText}>
+            {apiResponse.message}
+          </p>
+          <p className={styles.apiErrorText}>
+            {apiResponse.errors.length !== 0 ? apiResponse.errors.toString() : ''}
+          </p>
+        </div>
+  
+        <div className={styles.postsContainer}>
+          {posts.list.map((post) => {
+            return <div 
+              key={post._id} 
+              className={styles.postContainer}
+              onClick={() => {
+                handlePostClick(post);
+              }}
+            >
+              <div className={styles.postInformationText}>
+                <p className={styles.postTitleText}>
+                  <strong>Title: </strong>{post.title.length < 50 ? post.title.slice(0, 50) : post.title}
+                </p>
+                <p className={styles.postBodyText}>
+                  <em>Body: </em>{post.body.length < 50 ? post.body.slice(0, 50) : post.body}
+                </p>
+              </div>
+              <div className={styles.postDateAndTime}>
+                <p className={styles.postDateText}>
+                  <em>Date: </em>{post.timestamp.split('T')[0]}
+                </p>
+                <p className={styles.postTimeText}>
+                  <em>Time: </em>{post.timestamp.split('T')[1].split('.')[0]}
+                </p>
+              </div>
             </div>
-            <div className={styles.postDateAndTime}>
-              <p className={styles.postDateText}>
-                <em>Date: </em>{post.timestamp.split('T')[0]}
-              </p>
-              <p className={styles.postTimeText}>
-                <em>Time: </em>{post.timestamp.split('T')[1].split('.')[0]}
-              </p>
-            </div>
-          </div>
-        })}
-      </div>
-      
-    </section>
-  );
+          })}
+        </div>
+        
+      </section>
+    );
+  };
 };

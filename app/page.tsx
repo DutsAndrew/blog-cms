@@ -3,7 +3,7 @@
 import styles from './page.module.css';
 import uniqid from 'uniqid';
 import Link from 'next/link';
-import Header from './Header/Header';
+import Header from './Components/Header';
 import { useEffect, useState } from 'react';
 
 export default function Home() {
