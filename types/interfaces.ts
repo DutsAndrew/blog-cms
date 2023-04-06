@@ -24,6 +24,7 @@ interface UpdatePostProps {
     whoLiked: string[];
     _id: string,
   },
+  exitForm: Function,
 };
 
 interface UpdateRequestedState {

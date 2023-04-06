@@ -111,6 +111,7 @@
 
 .apiHeaderText, .apiMessageText, .apiErrorText {
   margin: 0;
+  font-size: 1.25em;
 }
 
 .postsContainer {
@@ -151,3 +152,6 @@
 .postDateAndTime {
   font-size: 1em;
 }
+
+/* UPDATE POST FORM */
+

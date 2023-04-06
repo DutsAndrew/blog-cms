@@ -10,10 +10,14 @@ import Filter from 'bad-words';
 
 const UpdatePostForm: FC<UpdatePostProps> = (props) => {
 
-  const { post } = props;
+  const { post, exitForm } = props;
 
   const [tags, setTags] = useState<TagType>({
     list: [...post.tags], 
+  });
+
+  const [apiResponse, setApiResponse] = useState({
+    message: '',
   });
 
   const handleAddTag = () => {
@@ -77,7 +81,7 @@ const UpdatePostForm: FC<UpdatePostProps> = (props) => {
           data.append('body', body);
           data.append('tags', tags.list.toString());
 
-      const url: string = `http://localhost:8080/api/post?id=${post._id}`;
+      const url: string = `http://localhost:8080/api/post/update/${post._id}`;
       const sendPost = await fetch(url, {
         headers: {
           'Accept': 'application/json',
@@ -88,12 +92,19 @@ const UpdatePostForm: FC<UpdatePostProps> = (props) => {
         body: data.toString(),
       });
 
-      const response = await sendPost.json();
-      console.log(response);
-      if (!response) {
-        alert('Your post did not upload correctly to our server, please try again later');
-      } else {
-        alert('Your post was successfully uploaded, we are redirecting you back to the home page');
+      try {
+        const response = await sendPost.json();
+        if (response) {
+          setApiResponse({
+            message: `${response.message}`,
+          });
+        } else {
+          return;
+        }
+      } catch(error) {
+        setApiResponse({
+          message: `${error}`,
+        });
       };
     };
   };
@@ -107,11 +118,20 @@ const UpdatePostForm: FC<UpdatePostProps> = (props) => {
             Return to Home
           </button>
         </Link>
-        <Link href={'/post/update'}>
-          <button className="return-btn">
-            Return to Update Page
-          </button>
-        </Link>
+        
+        <button 
+          className="return-btn"
+          onClick={() => exitForm()}
+        >
+          Return to Update Page
+        </button>
+      </div>
+
+      <div className={styles.apiResponseContainer}>
+        <h1 className={styles.apiHeaderText}>Database Information:</h1>
+        <p className={styles.apiMessageText}>
+          {apiResponse.message}
+        </p>
       </div>
 
       <form 

@@ -16,7 +16,6 @@ export default function UpdatePost() {
 
   const [apiResponse, setApiResponse] = useState({
     message: '',
-    errors: [],
   });
 
   const [posts, setPosts] = useState<UserPostsState>({
@@ -65,7 +64,6 @@ export default function UpdatePost() {
           });
           setApiResponse({
             message: (response as unknown as UserPostsResponse).message,
-            errors: [],
           });
         } else {
           // no posts were connected with the account
@@ -74,12 +72,13 @@ export default function UpdatePost() {
           });
           setApiResponse({
             message: (response as unknown as UserPostsResponse).message,
-            errors: [],
           });
         };
       };
     } catch(error) {
-      alert(error);
+      setApiResponse({
+        message: `${error}`,
+      });
     };
   };
 
@@ -91,10 +90,17 @@ export default function UpdatePost() {
     });
   };
 
+  const exitUpdateForm = () => {
+    setUpdateRequested({
+      status: false,
+      post: null,
+    });
+  };
+
   if (updateRequested.status === true) {
     if (updateRequested.post !== null) {
       return (
-        <UpdatePostForm post={updateRequested.post} />
+        <UpdatePostForm post={updateRequested.post} exitForm={exitUpdateForm} />
       );
     };
   } else {
@@ -111,9 +117,6 @@ export default function UpdatePost() {
           <h1 className={styles.apiHeaderText}>Database Information:</h1>
           <p className={styles.apiMessageText}>
             {apiResponse.message}
-          </p>
-          <p className={styles.apiErrorText}>
-            {apiResponse.errors.length !== 0 ? apiResponse.errors.toString() : ''}
           </p>
         </div>
   
