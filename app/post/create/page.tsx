@@ -62,6 +62,7 @@ export default function CreatePost() {
       });
 
       const response = await sendPost.json();
+      console.log(response);
       if (!response) {
         alert('Your post did not upload correctly to our server, please try again later');
       } else {

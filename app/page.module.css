@@ -95,8 +95,9 @@
   justify-content: flex-start;
   align-items: center;
   width: 100vw;
-  height: 100vh;
+  height: auto;
   overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 .apiResponseContainer {
@@ -117,13 +118,12 @@
 .postsContainer {
   width: 80vw;
   height: auto;
-  overflow-y: scroll;
   display: flex;
-  flex: 1 1 100%;
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
   overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 .postContainer {
@@ -153,5 +153,14 @@
   font-size: 1em;
 }
 
-/* UPDATE POST FORM */
+/* DELETE POST LIST */
 
+.deleteIcon {
+  max-width: 5vw;
+  max-height: 5vh;
+}
+
+.deleteIcon:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}

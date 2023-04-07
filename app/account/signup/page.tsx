@@ -1,12 +1,20 @@
 'use client';
 
 import Link from 'next/link';
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function SignUp() {
 
   const router = useRouter();
+
+  const [apiResponse, setApiResponse] = useState({
+    message: '',
+  });
+
+  const [badFormData, setBadFormData] = useState({
+    data: {},
+  });
 
   const handleFormSubmission = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -27,7 +35,7 @@ export default function SignUp() {
             data.append('password', (password as HTMLInputElement).value);
             data.append('confirmPassword', (confirmPassword as HTMLInputElement).value);
 
-      const url = 'https://avd-blog-api.fly.dev/api/signup';
+      const url = 'http://localhost:8080/api/signup';
       const sendFormData = await fetch(url, {
         headers: {
           'Accept': 'application/json',
@@ -37,11 +45,36 @@ export default function SignUp() {
         body: data.toString(),
       });
 
-      const response = await sendFormData.json();
-      if (confirm(`${response.message}, email: ${response.strippedUserInformation.email}`) === true) {
-        router.push('/account/login');
-      } else {
-        router.push('/');
+      try {
+        const response = await sendFormData.json();
+        console.log(response);
+        if (response.strippedUserInformation) {
+          // account was verified
+          setApiResponse({
+            message: response.message,
+          });
+          setTimeout(() => {
+            router.push('/account/login');
+          }, 1500);
+        } else {
+          setApiResponse({
+            message: response.message,
+          });
+          setBadFormData({
+            data: {
+              email: response.email,
+              firstName: response.firstName,
+              lastName: response.lastName,
+              location: response.location,
+              password: response.password,
+              confirmPassword: response.confirmPassword,
+            }
+          })
+        };
+      } catch(error) {
+        setApiResponse({
+          message: `${error}`,
+        });
       };
     };
   };
