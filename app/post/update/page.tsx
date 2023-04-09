@@ -49,7 +49,6 @@ export default function UpdatePost() {
       });
     
       const response = await findPosts.json();
-      
       if (!response) {
         alert('we had issues finding posts in our database, please try again later');
       } else {
