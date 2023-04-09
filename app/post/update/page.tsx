@@ -90,6 +90,10 @@ export default function UpdatePost() {
   };
 
   const exitUpdateForm = () => {
+    const token = sessionStorage.getItem("token");
+    if (token) {
+      findPosts(token);
+    };
     setUpdateRequested({
       status: false,
       post: null,
