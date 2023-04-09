@@ -138,10 +138,10 @@ export default function UpdatePost() {
             >
               <div className={styles.postInformationText}>
                 <p className={styles.postTitleText}>
-                  <strong>Title: </strong>{post.title.length < 50 ? post.title.slice(0, 50) : post.title}
+                  <strong>Title: </strong>{post.title.length < 50 ? post.title : post.title.slice(0, 50)}
                 </p>
                 <p className={styles.postBodyText}>
-                  <em>Body: </em>{post.body.length < 50 ? post.body.slice(0, 50) : post.body}
+                  <em>Body: </em>{post.body.length < 50 ? post.body : post.body.slice(0, 50)}
                 </p>
               </div>
               <div className={styles.postDateAndTime}>

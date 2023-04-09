@@ -7,6 +7,11 @@ interface UserPostsResponse {
   posts?: any[],
 };
 
+interface CommentsResponse {
+  message: string,
+  comments?: any[],
+};
+
 interface UserPostsState {
   list: any[],
 };
@@ -54,13 +59,30 @@ interface Post {
   title: string;
   whoLiked: string[];
   _id: string,
-}
+};
+
+interface Comment {
+  author: string,
+  comment: string,
+  likes: number,
+  timestamp: string,
+  _id: string,
+};
+
+interface DeleteCommentState {
+  comments: any[],
+  foundComments: boolean,
+  message: string,
+};
 
 export {
   type TagType,
   type UserPostsResponse,
+  type CommentsResponse,
   type UserPostsState,
   type UpdatePostProps,
   type UpdateRequestedState,
   type Post,
+  type Comment,
+  type DeleteCommentState,
 }
