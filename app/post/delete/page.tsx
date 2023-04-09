@@ -99,10 +99,18 @@ export default function DeletePost() {
           method: 'DELETE',
         });
         const response = await deleteRequest.json();
-        setApiResponse({
-          foundPosts: true,
-          message: `${response.message}`,
-        });
+        if (response.deletedPost) {
+          findPosts(token);
+          setApiResponse({
+            foundPosts: true,
+            message: `${response.message}`,
+          });
+        } else {
+          setApiResponse({
+            foundPosts: true,
+            message: `${response.message}`,
+          });
+        };
       } catch(error) {
         setApiResponse({
           foundPosts: true,
