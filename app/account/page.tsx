@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import AccountOptions from '../Components/AccountOptions';
 
 export default function AccountManagement() {
   return (
@@ -8,6 +9,9 @@ export default function AccountManagement() {
           Return to Home
         </button>
       </Link>
+
+      <AccountOptions />
+
     </section>
   );
 };
