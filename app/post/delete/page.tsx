@@ -14,6 +14,7 @@ import {
 export default function DeletePost() {
 
   const [apiResponse, setApiResponse] = useState({
+    foundPosts: false,
     message: '',
   });
 
@@ -62,6 +63,7 @@ export default function DeletePost() {
             list: posts,
           });
           setApiResponse({
+            foundPosts: true,
             message: (response as unknown as UserPostsResponse).message,
           });
         } else {
@@ -70,18 +72,20 @@ export default function DeletePost() {
             list: ["no posts were found"],
           });
           setApiResponse({
+            foundPosts: false,
             message: (response as unknown as UserPostsResponse).message,
           });
         };
       };
     } catch(error) {
       setApiResponse({
+        foundPosts: false,
         message: `${error}`,
       });
     };
   };
 
-  const handleDeletePost = async (post: Post): void => {
+  const handleDeletePost = async (post: Post): Promise<void> => {
     const token: string | null = sessionStorage.getItem("token");
     if (token) {
       const url: string = `http://localhost:8080/api/post/delete/${post._id}`;
@@ -96,67 +100,89 @@ export default function DeletePost() {
         });
         const response = await deleteRequest.json();
         setApiResponse({
+          foundPosts: true,
           message: `${response.message}`,
         });
       } catch(error) {
         setApiResponse({
+          foundPosts: true,
           message: `${error}`,
         });
       };
     } else {
       setApiResponse({
+        foundPosts: false,
         message: "You do not have an active token and therefore cannot delete any posts, please log-in, or re-login if you've been active for more than an hour",
       });
     };
   };
 
-  return (
-    <section className={styles.updatePostContainer}>
-      <h1 className={styles.headerTitle}>Delete a Post</h1>
-      <Link href={'/'}>
-        <button className="return-btn">
-          Return to Home
-        </button>
-      </Link>
+  if (posts.list.length === 0 || apiResponse.foundPosts === false) {
+    return (
+      <section className={styles.updatePostContainer}>
+        <h1 className={styles.headerTitle}>Delete a Post</h1>
+        <Link href={'/'}>
+          <button className="return-btn">
+            Return to Home
+          </button>
+        </Link>
 
-      <div className={styles.apiResponseContainer}>
-        <h1 className={styles.apiHeaderText}>Database Information:</h1>
-        <p className={styles.apiMessageText}>
-          {apiResponse.message}
-        </p>
-      </div>
-
-      <div className={styles.postsContainer}>
-        {posts.list.map((post) => {
-          return <div 
-            key={post._id} 
-            className={styles.postContainer}
-          >
-            <div className={styles.postInformationText}>
-              <p className={styles.postTitleText}>
-                <strong>Title: </strong>{post.title.length < 50 ? post.title.slice(0, 50) : post.title}
-              </p>
-              <p className={styles.postBodyText}>
-                <em>Body: </em>{post.body.length < 50 ? post.body.slice(0, 50) : post.body}
-              </p>
+        <div className={styles.apiResponseContainer}>
+          <h1 className={styles.apiHeaderText}>Database Information:</h1>
+          <p className={styles.apiMessageText}>
+            {apiResponse.message}
+          </p>
+        </div>
+      </section>
+    );
+  } else {
+    return (
+      <section className={styles.updatePostContainer}>
+        <h1 className={styles.headerTitle}>Delete a Post</h1>
+        <Link href={'/'}>
+          <button className="return-btn">
+            Return to Home
+          </button>
+        </Link>
+  
+        <div className={styles.apiResponseContainer}>
+          <h1 className={styles.apiHeaderText}>Database Information:</h1>
+          <p className={styles.apiMessageText}>
+            {apiResponse.message}
+          </p>
+        </div>
+  
+        <div className={styles.postsContainer}>
+          {posts.list.map((post) => {
+            return <div 
+              key={post._id} 
+              className={styles.postContainer}
+            >
+              <div className={styles.postInformationText}>
+                <p className={styles.postTitleText}>
+                  <strong>Title: </strong>{post.title.length < 50 ? post.title : post.title.slice(0, 50)}
+                </p>
+                <p className={styles.postBodyText}>
+                  <em>Body: </em>{post.body.length < 50 ? post.body: post.body.slice(0, 50)}
+                </p>
+              </div>
+              <div className={styles.postDateAndTime}>
+                <p className={styles.postDateText}>
+                  <em>Date: </em>{post.timestamp.split('T')[0]}
+                </p>
+                <p className={styles.postTimeText}>
+                  <em>Time: </em>{post.timestamp.split('T')[1].split('.')[0]}
+                </p>
+              </div>
+              <img 
+                src={deleteIcon}
+                className={styles.deleteIcon}
+                onClick={() => handleDeletePost(post)}>
+              </img>
             </div>
-            <div className={styles.postDateAndTime}>
-              <p className={styles.postDateText}>
-                <em>Date: </em>{post.timestamp.split('T')[0]}
-              </p>
-              <p className={styles.postTimeText}>
-                <em>Time: </em>{post.timestamp.split('T')[1].split('.')[0]}
-              </p>
-            </div>
-            <img 
-              src={deleteIcon}
-              className={styles.deleteIcon}
-              onClick={() => handleDeletePost(post)}>
-            </img>
-          </div>
-        })}
-      </div>
-      
-    </section>
-  );
+          })}
+        </div>
+      </section>
+    );
+  };
 };

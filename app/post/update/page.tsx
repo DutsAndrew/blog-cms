@@ -15,6 +15,7 @@ import {
 export default function UpdatePost() {
 
   const [apiResponse, setApiResponse] = useState({
+    foundPosts: false,
     message: '',
   });
 
@@ -62,6 +63,7 @@ export default function UpdatePost() {
             list: posts,
           });
           setApiResponse({
+            foundPosts: true,
             message: (response as unknown as UserPostsResponse).message,
           });
         } else {
@@ -70,12 +72,14 @@ export default function UpdatePost() {
             list: ["no posts were found"],
           });
           setApiResponse({
+            foundPosts: false,
             message: (response as unknown as UserPostsResponse).message,
           });
         };
       };
     } catch(error) {
       setApiResponse({
+        foundPosts: false,
         message: `${error}`,
       });
     };
@@ -106,7 +110,7 @@ export default function UpdatePost() {
         <UpdatePostForm post={updateRequested.post} exitForm={exitUpdateForm} />
       );
     };
-  } else {
+  } else if (posts.list.length !== 0 && apiResponse.foundPosts === true) {
     return (
       <section className={styles.updatePostContainer}>
         <h1 className={styles.headerTitle}>Update a Post</h1>
@@ -152,6 +156,25 @@ export default function UpdatePost() {
           })}
         </div>
         
+      </section>
+    );
+  } else {
+    return (
+      // return nav items but remove post containers
+      <section className={styles.updatePostContainer}>
+        <h1 className={styles.headerTitle}>Update a Post</h1>
+        <Link href={'/'}>
+          <button className="return-btn">
+            Return to Home
+          </button>
+        </Link>
+
+        <div className={styles.apiResponseContainer}>
+          <h1 className={styles.apiHeaderText}>Database Information:</h1>
+          <p className={styles.apiMessageText}>
+            {apiResponse.message}
+          </p>
+        </div>
       </section>
     );
   };
