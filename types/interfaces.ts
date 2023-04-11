@@ -76,10 +76,22 @@ interface DeleteCommentState {
 };
 
 interface AccountInformationState {
-  accountInformation?: string | null,
+  accountInformation?: {
+    email: string,
+    firstName: string,
+    lastName: string,
+    location: string,
+  } | null,
   foundAccount: boolean,
   message: string,
 };
+
+interface UpdatedAccountInformation {
+  email: string,
+  firstName: string,
+  lastName: string,
+  location?: string,
+}
 
 export {
   type TagType,
@@ -92,4 +104,5 @@ export {
   type Comment,
   type DeleteCommentState,
   type AccountInformationState,
+  type UpdatedAccountInformation,
 }

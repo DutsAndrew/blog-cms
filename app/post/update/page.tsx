@@ -11,7 +11,6 @@ import {
   Post 
 } from '@/types/interfaces';
 
-
 export default function UpdatePost() {
 
   const [apiResponse, setApiResponse] = useState({
