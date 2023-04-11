@@ -75,6 +75,12 @@ interface DeleteCommentState {
   message: string,
 };
 
+interface AccountInformationState {
+  accountInformation?: string | null,
+  foundAccount: boolean,
+  message: string,
+};
+
 export {
   type TagType,
   type UserPostsResponse,
@@ -85,4 +91,5 @@ export {
   type Post,
   type Comment,
   type DeleteCommentState,
+  type AccountInformationState,
 }
