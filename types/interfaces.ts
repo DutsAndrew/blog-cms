@@ -93,6 +93,16 @@ interface UpdatedAccountInformation {
   location?: string,
 }
 
+interface DeleteAccountState {
+  message: string,
+  account?: any,
+};
+
+interface LoginState {
+  message: string,
+  errors?: string | any[],
+};
+
 export {
   type TagType,
   type UserPostsResponse,
@@ -105,4 +115,6 @@ export {
   type DeleteCommentState,
   type AccountInformationState,
   type UpdatedAccountInformation,
+  type DeleteAccountState,
+  type LoginState,
 }

@@ -1,12 +1,18 @@
 'use client'
 
 import Link from 'next/link';
-import { FormEvent, useEffect, useState } from 'react';
+import styles from '../../page.module.css';
+import { FormEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { LoginState } from '@/types/interfaces';
 
 export default function Login() {
 
   const router = useRouter();
+
+  const [apiResponse, setApiResponse] = useState<LoginState>({
+    message: "",
+  });
 
   const handleFormSubmission = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -30,16 +36,25 @@ export default function Login() {
         body: data.toString(),
       });
 
-      const apiResponse = await sendFormData.json();
+      const response = await sendFormData.json();
 
-      const token = apiResponse.token;
-      sessionStorage.setItem("token", token);
-
-      // redirect user back to home page
-      if (confirm(`${apiResponse.message}, You've been logged in`) === true) {
-        router.push('/');
+      if (response.errors) {
+        setApiResponse({
+          message: response.message,
+          errors: apiResponse.errors,
+        });
+      } else if (response.token) {
+        // no errors found
+        const token = response.token;
+        sessionStorage.setItem("token", token);
+        // redirect user back to home page
+        if (confirm(`${apiResponse.message}, You've been logged in`) === true) {
+          router.push('/');
+        } else {
+          sessionStorage.removeItem("token");
+        };
       } else {
-        sessionStorage.removeItem("token");
+        return;
       };
     };
   };
@@ -52,6 +67,14 @@ export default function Login() {
           Return to Home
         </button>
       </Link>
+
+      <div className={styles.apiResponseContainer}>
+        <h1 className={styles.apiHeaderText}>Database Information:</h1>
+        <p className={styles.apiMessageText}>
+          {apiResponse.message}
+        </p>
+      </div>
+
       <form 
         className='login-account-form'
         onSubmit={(e) => handleFormSubmission(e)}
