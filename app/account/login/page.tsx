@@ -48,7 +48,7 @@ export default function Login() {
         const token = response.token;
         sessionStorage.setItem("token", token);
         // redirect user back to home page
-        if (confirm(`${apiResponse.message}, You've been logged in`) === true) {
+        if (confirm(`${apiResponse.message} You've been logged in`) === true) {
           router.push('/');
         } else {
           sessionStorage.removeItem("token");

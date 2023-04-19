@@ -1,5 +1,6 @@
 'use client';
 
+import React, { useRef } from 'react';
 import styles from '../../page.module.css';
 import Link from 'next/link';
 import { FormEvent, useState } from 'react';
@@ -8,10 +9,13 @@ import { TagType } from '@/types/interfaces';
 import Filter from 'bad-words';
 import uniqid from 'uniqid';
 import { useRouter } from 'next/navigation';
+import { Editor } from '@tinymce/tinymce-react';
 
 export default function CreatePost() {
 
+  // variables for component use
   const router = useRouter();
+  const editorRef = useRef(null);
 
   const [tags, setTags] = useState<TagType>({
     list: [], 
@@ -19,10 +23,13 @@ export default function CreatePost() {
 
   const handleFormSubmission = (e: FormEvent): void => {
     e.preventDefault();
-    
+
+    (editorRef as any).current.getContent()
+
     const filter = new Filter(),
           title = document.querySelector('#title'),
           body = document.querySelector('#body');
+
 
     if (title && body) {
       const titleText = (title as HTMLInputElement).value;
@@ -48,7 +55,7 @@ export default function CreatePost() {
       const data = new URLSearchParams();
           data.append('title', title);
           data.append('body', body);
-          data.append('tags', tags.list.toString());
+          data.append('tags', tags.list.toString().toLowerCase());
 
       const url: string = 'http://localhost:8080/api/post/create';
       const sendPost = await fetch(url, {
@@ -121,13 +128,6 @@ export default function CreatePost() {
         </div>
 
         <div className='form-group'>
-          <label htmlFor='body'>
-            *Body:
-          </label>
-          <input name="body" id='body' type="text"></input>
-        </div>
-
-        <div className='form-group'>
           <label htmlFor='tags'>
             Tags:
           </label>
@@ -157,6 +157,31 @@ export default function CreatePost() {
             </div>
           })}
         </div>
+
+        <label htmlFor='body'>
+          *Body:
+        </label>
+        <Editor
+          apiKey={process.env.tinyMCE}
+          onInit={(evt, editor) => (editorRef as any).current = editor}
+          initialValue="<p>Write something interesting.</p>"
+          tagName='body'
+          id='body'
+          init={{
+            height: 500,
+            menubar: false,
+            plugins: [
+              'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+              'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+              'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
+            ],
+            toolbar: 'undo redo | blocks | ' +
+              'bold italic forecolor | alignleft aligncenter ' +
+              'alignright alignjustify | bullist numlist outdent indent | ' +
+              'removeformat | help',
+            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+          }}
+        />
 
         <button 
           type='submit'
