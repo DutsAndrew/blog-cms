@@ -47,6 +47,7 @@ export default function Login() {
         // no errors found
         const token = response.token;
         sessionStorage.setItem("token", token);
+        sessionStorage.setItem("role", response.role);
         // redirect user back to home page
         if (confirm(`${apiResponse.message} You've been logged in`) === true) {
           router.push('/');

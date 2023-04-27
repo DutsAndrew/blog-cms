@@ -12,9 +12,31 @@ export default function Home() {
     token: false,
   });
 
+  const [crudOperations, setCrudOperations] = useState(
+    [
+      {
+        title: "Create Post",
+        route: "/post/create",
+      },
+      {
+        title: "Update Post",
+        route: "/post/update"
+      },
+      {
+        title: "Delete Post",
+        route: "/post/delete",
+      },
+      {
+        title: "Account Management",
+        route: "/account"
+      },
+    ],
+  );
+
   useEffect(() => {
     // on header mount check for token and then display the correct header
     checkForToken();
+    checkIfAdmin();
   }, []);
 
   const checkForToken = () => {
@@ -34,24 +56,20 @@ export default function Home() {
     alert('You are not signed in and therefore cannot perform post managing actions; please create an account and or login before attempting again');
   };
 
-  const crudOperations = [
-    {
-      title: "Create Post",
-      route: "/post/create",
-    },
-    {
-      title: "Update Post",
-      route: "/post/update"
-    },
-    {
-      title: "Delete Post",
-      route: "/post/delete",
-    },
-    {
-      title: "Account Management",
-      route: "/account"
-    },
-  ];
+  const checkIfAdmin = () => {
+    const role = sessionStorage.getItem("role");
+    const announcementOperation = {
+      title: "Create Announcement",
+      route: "/announcement"
+    };
+    if (role === 'admin') {
+      setCrudOperations(
+        [...crudOperations, announcementOperation],
+      );
+    } else {
+      return;
+    };
+  };
 
   if (auth.token === true) {
     return (

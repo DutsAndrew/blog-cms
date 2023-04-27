@@ -34,16 +34,7 @@ export default function CreatePost() {
     if (title && body) {
       const titleText = (title as HTMLInputElement).value;
       const bodyText = (body as HTMLInputElement).value;
-      if ((titleText.trim().length === 0 || titleText.trim().length > 25)
-        || (bodyText.trim().length === 0 || bodyText.trim().length > 10000)
-      ) {
-        alert('Your post is missing either a title or a text body, or your title was more than 25 characters and or your body text was more than 10,000 characters. Please fix those before resubmitting');
-      } else {
-        // sanitize naughty words and send it to db function
-        sendPostToDb(filter.clean(titleText), filter.clean(bodyText));
-      };
-    } else {
-      alert('something went wrong, please try again');
+      sendPostToDb(filter.clean(titleText), filter.clean(bodyText));
     };
   };
 
