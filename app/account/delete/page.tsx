@@ -4,6 +4,7 @@ import Link from "next/link";
 import styles from '../../page.module.css';
 import { useState } from "react";
 import { DeleteAccountState } from "@/types/interfaces";
+import { type } from "os";
 
 const DeleteAccount = () => {
 
@@ -14,9 +15,11 @@ const DeleteAccount = () => {
 
   const handleAccountUpdateFormSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
-    const token = sessionStorage.getItem("token");
-    if (token) {
-      makeDeleteRequest(token);
+    if (typeof window !== "undefined") {
+      const token = sessionStorage.getItem("token");
+      if (token) {
+        makeDeleteRequest(token);
+      };
     };
   };
 
@@ -36,7 +39,9 @@ const DeleteAccount = () => {
           message: response.message,
           account: response.account,
         });
-        sessionStorage.removeItem("token");
+        if (typeof window !== "undefined") {
+          sessionStorage.removeItem("token");
+        };
         alert("You have been signed out");
       } else {
         // deletion unsuccessful

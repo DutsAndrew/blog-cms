@@ -30,41 +30,45 @@ const ChangePassword = () => {
   };
 
   const sendPasswordToDb = async (oldPass: string, newPass: string, confirmNewPass: string): Promise<void> => {
-    const token = sessionStorage.getItem("token");
-    if (token) {
-      const formData = new URLSearchParams();
-            formData.append("oldPassword", oldPass);
-            formData.append("newPassword", newPass);
-            formData.append("confirmNewPassword", confirmNewPass);
+    if (typeof window !== "undefined") {
+      const token = sessionStorage.getItem("token");
+      if (token) {
+        const formData = new URLSearchParams();
+              formData.append("oldPassword", oldPass);
+              formData.append("newPassword", newPass);
+              formData.append("confirmNewPassword", confirmNewPass);
 
-      const url = 'http://localhost:8080/api/user/password';
-      const sendNewPassword = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Authorization': `Bearer ${token}`,
-        },
-        body: formData.toString(),
-      });
-      const response = await sendNewPassword.json();
-      setApiResponse({
-        message: response.message,
-      });
-      alert('In order to maintain security we are signing you out, please sign in with your updated information');
-      setTimeout(() => {
-        // give time for user to see apiResponse message on screen before signing out
-        handleSignOut();
-      }, 500);
-    } else {
-      return;
-    }
+        const url = 'http://localhost:8080/api/user/password';
+        const sendNewPassword = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': `Bearer ${token}`,
+          },
+          body: formData.toString(),
+        });
+        const response = await sendNewPassword.json();
+        setApiResponse({
+          message: response.message,
+        });
+        alert('In order to maintain security we are signing you out, please sign in with your updated information');
+        setTimeout(() => {
+          // give time for user to see apiResponse message on screen before signing out
+          handleSignOut();
+        }, 500);
+      } else {
+        return;
+      };
+    };
   };
 
   const handleSignOut = () => {
-    sessionStorage.removeItem("token");
-    router.push('/');
-    alert('you have been signed out');
+    if (typeof window !== "undefined") {
+      sessionStorage.removeItem("token");
+      router.push('/');
+      alert('you have been signed out');
+    };
   };
 
   return (

@@ -10,8 +10,6 @@ import { Editor } from '@tinymce/tinymce-react';
 
 export default function Announcement() {
 
-  console.log(sessionStorage.getItem("role"));
-
   // variables for component use
   const editorRef = useRef(null);
 
@@ -35,34 +33,37 @@ export default function Announcement() {
   };
 
   const sendPostToDb = async (announcement: string): Promise<void> => {
-    const token = sessionStorage.getItem("token");
-    if (!token) {
-      alert('You can not submit a post until you are logged in to our API');
-    } else {
-      const data = new URLSearchParams();
-          data.append('announcement', announcement);
-
-      const url: string = 'http://localhost:8080/api/announcement/create';
-      const sendPost = await fetch(url, {
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Authorization': `Bearer ${token}`,
-        },
-        method: 'POST',
-        body: data.toString(),
-      });
-
-      const response = await sendPost.json();
-      if (response.announcement) {
-        // announcement created
-        setApiResponse({
-          message: response.message,
-        });
+    // next.js uses server side rendering, so if a window is not present the sessionStorage will through an error
+    if (typeof window !== "undefined") {
+      const token = sessionStorage.getItem("token");
+      if (!token) {
+        alert('You can not submit a post until you are logged in to our API');
       } else {
-        setApiResponse({
-          message: response.message,
+        const data = new URLSearchParams();
+            data.append('announcement', announcement);
+
+        const url: string = 'http://localhost:8080/api/announcement/create';
+        const sendPost = await fetch(url, {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': `Bearer ${token}`,
+          },
+          method: 'POST',
+          body: data.toString(),
         });
+
+        const response = await sendPost.json();
+        if (response.announcement) {
+          // announcement created
+          setApiResponse({
+            message: response.message,
+          });
+        } else {
+          setApiResponse({
+            message: response.message,
+          });
+        };
       };
     };
   };

@@ -72,7 +72,7 @@ const UpdatePostForm: FC<UpdatePostProps> = (props) => {
   };
 
   const sendPostToDbToUpdate = async (title: string, body: string): Promise<void> => {
-    const token = sessionStorage.getItem("token");
+    const token = typeof window !== "undefined" ? sessionStorage.getItem("token") : false;
     if (!token) {
       alert('You can not submit a post until you are logged in to our API');
     } else {

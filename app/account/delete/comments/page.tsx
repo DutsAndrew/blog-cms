@@ -15,11 +15,13 @@ const DeleteComments = () => {
   });
 
   useEffect(() => {
-    const token: string | null = sessionStorage.getItem("token");
-    if (token) {
-      fetchComments(token);
-    } else {
-      return;
+    if (typeof window !== "undefined") {
+      const token: string | null = sessionStorage.getItem("token");
+      if (token) {
+        fetchComments(token);
+      } else {
+        return;
+      };
     };
   }, []);
 

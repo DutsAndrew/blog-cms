@@ -19,11 +19,13 @@ const UpdateAccount = () => {
   });
 
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
-    if (token) {
-      fetchAccountInformation(token);
-    } else {
-      return;
+    if (typeof window !== "undefined") {
+      const token = sessionStorage.getItem("token");
+      if (token) {
+        fetchAccountInformation(token);
+      } else {
+        return;
+      };
     };
   }, []);
 
@@ -110,49 +112,53 @@ const UpdateAccount = () => {
           formData.append('lastName', data.lastName);
           if (data.location)  formData.append('location', data.location);
 
-    const token: string | null = sessionStorage.getItem("token");
-    if (token) {
-      const url: string = 'http://localhost:8080/api/user/account';
-      try {
-        const findAccount = await fetch(url, {
-          method: 'PUT',
-          headers: {
-            'Accept': 'application/json',
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          body: formData.toString(),
-        });
-        const response = await findAccount.json();
-        if (response.account) {
-          // account was found and attached to response body
-          setApiResponse({
-            accountInformation: response.account,
-            foundAccount: true,
-            message: `${response.message}`,
+    if (typeof window !== "undefined") {
+      const token: string | null = sessionStorage.getItem("token");
+      if (token) {
+        const url: string = 'http://localhost:8080/api/user/account';
+        try {
+          const findAccount = await fetch(url, {
+            method: 'PUT',
+            headers: {
+              'Accept': 'application/json',
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: formData.toString(),
           });
-          alert('In order to maintain security we are signing you out, please sign in with your updated information');
-          handleSignOut();
-        } else {
-          // api call had no errors but no user data was found
+          const response = await findAccount.json();
+          if (response.account) {
+            // account was found and attached to response body
+            setApiResponse({
+              accountInformation: response.account,
+              foundAccount: true,
+              message: `${response.message}`,
+            });
+            alert('In order to maintain security we are signing you out, please sign in with your updated information');
+            handleSignOut();
+          } else {
+            // api call had no errors but no user data was found
+            setApiResponse({
+              foundAccount: false,
+              message: `${response.message}`,
+            });
+          }
+        } catch (error) {
           setApiResponse({
             foundAccount: false,
-            message: `${response.message}`,
+            message: `${apiResponse.message}`,
           });
-        }
-      } catch (error) {
-        setApiResponse({
-          foundAccount: false,
-          message: `${apiResponse.message}`,
-        });
+        };
       };
     };
   };
 
   const handleSignOut = () => {
-    sessionStorage.removeItem("token");
-    router.push('/');
-    alert('you have been signed out');
+    if (typeof window !== "undefined") {
+      sessionStorage.removeItem("token");
+      router.push('/');
+      alert('you have been signed out');
+    };
   };
 
   return (

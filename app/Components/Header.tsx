@@ -32,7 +32,9 @@ const Header = () => {
   };
 
   const handleSignOut = () => {
-    sessionStorage.removeItem("token");
+    if (typeof window !== "undefined") {
+      sessionStorage.removeItem("token");
+    };
     checkForToken();
     router.push('/');
     alert('you have been signed out');

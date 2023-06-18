@@ -46,13 +46,15 @@ export default function Login() {
       } else if (response.token) {
         // no errors found
         const token = response.token;
-        sessionStorage.setItem("token", token);
-        sessionStorage.setItem("role", response.role);
-        // redirect user back to home page
-        if (confirm(`${apiResponse.message} You've been logged in`) === true) {
-          router.push('/');
-        } else {
-          sessionStorage.removeItem("token");
+        if (typeof window !== "undefined") {
+          sessionStorage.setItem("token", token);
+          sessionStorage.setItem("role", response.role);
+          // redirect user back to home page
+          if (confirm(`${apiResponse.message} You've been logged in`) === true) {
+            router.push('/');
+          } else {
+            sessionStorage.removeItem("token");
+          };
         };
       } else {
         return;

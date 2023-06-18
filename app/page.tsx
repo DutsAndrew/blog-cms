@@ -57,17 +57,19 @@ export default function Home() {
   };
 
   const checkIfAdmin = () => {
-    const role = sessionStorage.getItem("role");
-    const announcementOperation = {
-      title: "Create Announcement",
-      route: "/announcement"
-    };
-    if (role === 'admin') {
-      setCrudOperations(
-        [...crudOperations, announcementOperation],
-      );
-    } else {
-      return;
+    if (typeof window !== "undefined") {
+      const role = sessionStorage.getItem("role");
+      const announcementOperation = {
+        title: "Create Announcement",
+        route: "/announcement"
+      };
+      if (role === 'admin') {
+        setCrudOperations(
+          [...crudOperations, announcementOperation],
+        );
+      } else {
+        return;
+      };
     };
   };
 
