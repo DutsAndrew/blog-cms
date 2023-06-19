@@ -6,4 +6,4 @@ Currently the Blog-CMS is built on NextJS 13, React, and TypeScript. It works in
 - [Blog API](https://github.com/DutsAndrew/blog-api) - a back-end API built on Node.js and Express
 - [Blog Client](https://github.com/DutsAndrew/blog-client) - for users to interact and engage with various blog postst
 
-The Application can be accessed here: https://blog-cms-le5o.vercel.app/
+The Application can be accessed here: https://dutsandrew-blog-cms.vercel.app/
