@@ -45,7 +45,7 @@ const Header = () => {
       <div className="header-logo-container">
         <img 
           className="anvil-svg"
-          src={anvilSVG}
+          src="/anvil.svg"
           >
         </img>
         <h1>
