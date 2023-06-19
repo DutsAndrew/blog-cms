@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import anvilSVG from '../../public/anvil.svg';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
@@ -68,7 +67,7 @@ const Header = () => {
         <div className="header-logo-container">
           <img 
             className="anvil-svg"
-            src={anvilSVG}
+            src="/anvil.svg"
             >
           </img>
           <h1>
