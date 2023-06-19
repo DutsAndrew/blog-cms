@@ -4,7 +4,6 @@ import Link from "next/link";
 import styles from '../../page.module.css';
 import { useState } from "react";
 import { DeleteAccountState } from "@/types/interfaces";
-import { type } from "os";
 
 const DeleteAccount = () => {
 
@@ -24,7 +23,7 @@ const DeleteAccount = () => {
   };
 
   const makeDeleteRequest = async (token: string): Promise<void> => {
-      const url = 'http://localhost:8080/api/user/delete';
+      const url = 'https://avd-blog-api.fly.dev/api/user/delete';
       const makeDeleteRequest = await fetch(url, {
         method: 'POST',
         headers: {

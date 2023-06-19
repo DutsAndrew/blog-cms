@@ -26,7 +26,7 @@ export default function Login() {
             data.append('password', (password as HTMLInputElement).value);
             data.append('confirmPassword', (confirmPassword as HTMLInputElement).value);
 
-      const url = 'http://localhost:8080/api/login';
+      const url = 'https://avd-blog-api.fly.dev/api/login';
       const sendFormData = await fetch(url, {
         headers: {
           'Accept': 'application/json',

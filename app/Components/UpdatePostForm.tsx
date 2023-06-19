@@ -81,7 +81,7 @@ const UpdatePostForm: FC<UpdatePostProps> = (props) => {
           data.append('body', body);
           data.append('tags', tags.list.toString());
 
-      const url: string = `http://localhost:8080/api/post/update/${post._id}`;
+      const url: string = `https://avd-blog-api.fly.dev/api/post/update/${post._id}`;
       const sendPost = await fetch(url, {
         headers: {
           'Accept': 'application/json',

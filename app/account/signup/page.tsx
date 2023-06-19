@@ -35,7 +35,7 @@ export default function SignUp() {
             data.append('password', (password as HTMLInputElement).value);
             data.append('confirmPassword', (confirmPassword as HTMLInputElement).value);
 
-      const url = 'http://localhost:8080/api/signup';
+      const url = 'https://avd-blog-api.fly.dev/api/signup';
       const sendFormData = await fetch(url, {
         headers: {
           'Accept': 'application/json',

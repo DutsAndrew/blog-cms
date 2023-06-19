@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import styles from '../../page.module.css';
-import { createElement, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import deleteIcon from '../../../public/delete-empty.svg';
 import {
   UserPostsResponse,
@@ -38,7 +38,7 @@ export default function DeletePost() {
   }, []);
 
   const findPosts = async (token: string) => {
-    const url: string = 'http://localhost:8080/api/user/posts';
+    const url: string = 'https://avd-blog-api.fly.dev/api/user/posts';
     try {
       const findPosts = await fetch(url, {
         method: 'GET',
@@ -88,7 +88,7 @@ export default function DeletePost() {
   const handleDeletePost = async (post: Post): Promise<void> => {
     const token: string | null = sessionStorage.getItem("token");
     if (token) {
-      const url: string = `http://localhost:8080/api/post/delete/${post._id}`;
+      const url: string = `https://avd-blog-api.fly.dev/api/post/delete/${post._id}`;
       try {
         const deleteRequest = await fetch(url, {
           headers: {

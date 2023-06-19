@@ -5,7 +5,6 @@ import styles from '../page.module.css';
 import Link from 'next/link';
 import { FormEvent, useState } from 'react';
 import Filter from 'bad-words';
-import { useRouter } from 'next/navigation';
 import { Editor } from '@tinymce/tinymce-react';
 
 export default function Announcement() {
@@ -42,7 +41,7 @@ export default function Announcement() {
         const data = new URLSearchParams();
             data.append('announcement', announcement);
 
-        const url: string = 'http://localhost:8080/api/announcement/create';
+        const url: string = 'https://avd-blog-api.fly.dev/api/announcement/create';
         const sendPost = await fetch(url, {
           headers: {
             'Accept': 'application/json',

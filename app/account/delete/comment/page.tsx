@@ -26,7 +26,7 @@ const DeleteComment = () => {
   }, []);
 
   const fetchComments = async (token: string): Promise<void> => {
-    const url: string = 'http://localhost:8080/api/user/comments';
+    const url: string = 'https://avd-blog-api.fly.dev/api/user/comments';
     try {
       const findComments = await fetch(url, {
         method: 'GET',

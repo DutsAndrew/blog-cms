@@ -48,7 +48,7 @@ export default function CreatePost() {
           data.append('body', body);
           data.append('tags', tags.list.toString().toLowerCase());
 
-      const url: string = 'http://localhost:8080/api/post/create';
+      const url: string = 'https://avd-blog-api.fly.dev/api/post/create';
       const sendPost = await fetch(url, {
         headers: {
           'Accept': 'application/json',

@@ -38,7 +38,7 @@ const ChangePassword = () => {
               formData.append("newPassword", newPass);
               formData.append("confirmNewPassword", confirmNewPass);
 
-        const url = 'http://localhost:8080/api/user/password';
+        const url = 'https://avd-blog-api.fly.dev/api/user/password';
         const sendNewPassword = await fetch(url, {
           method: 'POST',
           headers: {

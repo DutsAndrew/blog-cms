@@ -30,7 +30,7 @@ const UpdateAccount = () => {
   }, []);
 
   const fetchAccountInformation = async (token: string): Promise<void> => {
-    const url: string = 'http://localhost:8080/api/user/account';
+    const url: string = 'https://avd-blog-api.fly.dev/api/user/account';
     try {
       const findAccount = await fetch(url, {
         method: 'GET',
@@ -115,7 +115,7 @@ const UpdateAccount = () => {
     if (typeof window !== "undefined") {
       const token: string | null = sessionStorage.getItem("token");
       if (token) {
-        const url: string = 'http://localhost:8080/api/user/account';
+        const url: string = 'https://avd-blog-api.fly.dev/api/user/account';
         try {
           const findAccount = await fetch(url, {
             method: 'PUT',
