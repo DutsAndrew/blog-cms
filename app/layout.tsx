@@ -15,6 +15,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <title>Blog CMS</title>
+        <link rel='icon' type='image/png' href='/favicon.png' />
       </head>
       <body>
         <section className='section-container'>
