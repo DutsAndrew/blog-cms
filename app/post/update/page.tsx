@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import styles from '../../page.module.css';
 import Link from 'next/link';
 import UpdatePostForm from '@/app/Components/UpdatePostForm';
+import parse from 'html-react-parser';
 import { 
   UserPostsResponse,
   UserPostsState,
@@ -38,7 +39,7 @@ export default function UpdatePost() {
   }, []);
 
   const findPosts = async (token: string) => {
-    const url: string = 'https://avd-blog-api.fly.dev/api/user/posts';
+    const url: string = 'http://localhost:8080/api/user/posts/all';
     try {
       const findPosts = await fetch(url, {
         method: 'GET',
@@ -52,18 +53,14 @@ export default function UpdatePost() {
       if (!response) {
         alert('we had issues finding posts in our database, please try again later');
       } else {
-        if ((response as unknown as UserPostsResponse).posts) {
+        if (response.posts) {
           // we found posts connected to the users account
-          const posts: any[] = [];
-          (response as unknown as UserPostsResponse).posts?.forEach((post) => {
-            posts.push(post);
-          });
           setPosts({
-            list: posts,
+            list: response.posts,
           });
           setApiResponse({
             foundPosts: true,
-            message: (response as unknown as UserPostsResponse).message,
+            message: response.message,
           });
         } else {
           // no posts were connected with the account
@@ -137,11 +134,11 @@ export default function UpdatePost() {
             >
               <div className={styles.postInformationText}>
                 <p className={styles.postTitleText}>
-                  <strong>Title: </strong>{post.title.length < 50 ? post.title : post.title.slice(0, 50)}
+                  <strong>Title: </strong>{parse(post.title.length < 50 ? post.title : post.title.slice(0, 50))}
                 </p>
-                <p className={styles.postBodyText}>
-                  <em>Body: </em>{post.body.length < 50 ? post.body : post.body.slice(0, 50)}
-                </p>
+                <div className={styles.postBodyText}>
+                  {parse(post.body.length < 50 ? post.body : post.body.slice(0, 50))}
+                </div>
               </div>
               <div className={styles.postDateAndTime}>
                 <p className={styles.postDateText}>
@@ -154,7 +151,6 @@ export default function UpdatePost() {
             </div>
           })}
         </div>
-        
       </section>
     );
   } else {

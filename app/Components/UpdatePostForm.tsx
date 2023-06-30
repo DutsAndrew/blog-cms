@@ -1,16 +1,19 @@
 'use client';
 
-import { FC, useState } from 'react';
+import { FC, useState, useRef } from 'react';
 import styles from '../page.module.css';
 import Link from 'next/link';
 import { UpdatePostProps, TagType } from '@/types/interfaces';
 import uniqid from 'uniqid';
 import closeBox from '../../public/close-box.svg';
 import Filter from 'bad-words';
+import { Editor } from '@tinymce/tinymce-react';
 
 const UpdatePostForm: FC<UpdatePostProps> = (props) => {
 
   const { post, exitForm } = props;
+
+  const editorRef = useRef(null);
 
   const [tags, setTags] = useState<TagType>({
     list: [...post.tags], 
@@ -50,6 +53,8 @@ const UpdatePostForm: FC<UpdatePostProps> = (props) => {
 
   const handleFormUpdateSubmission = (e: React.FormEvent) => {
     e.preventDefault();
+
+    (editorRef as any).current.getContent()
     
     const filter = new Filter(),
           title = document.querySelector('#title'),
@@ -154,12 +159,27 @@ const UpdatePostForm: FC<UpdatePostProps> = (props) => {
           <label htmlFor='body'>
             *Body:
           </label>
-          <input 
-            name="body"
-            id='body'
-            type="text"
-            defaultValue={post.body}>
-          </input>
+          <Editor
+          apiKey={process.env.tinyMCE}
+          onInit={(evt, editor) => (editorRef as any).current = editor}
+          initialValue={post.body}
+          tagName='body'
+          id='body'
+          init={{
+            height: 500,
+            menubar: false,
+            plugins: [
+              'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+              'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+              'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
+            ],
+            toolbar: 'undo redo | blocks | ' +
+              'bold italic forecolor | alignleft aligncenter ' +
+              'alignright alignjustify | bullist numlist outdent indent | ' +
+              'removeformat | help',
+            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+          }}
+        />
         </div>
 
         <div className='form-group'>
