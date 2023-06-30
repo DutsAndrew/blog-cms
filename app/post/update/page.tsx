@@ -39,7 +39,7 @@ export default function UpdatePost() {
   }, []);
 
   const findPosts = async (token: string) => {
-    const url: string = 'http://localhost:8080/api/user/posts/all';
+    const url: string = 'https://avd-blog-api.fly.dev/api/user/posts/all';
     try {
       const findPosts = await fetch(url, {
         method: 'GET',
