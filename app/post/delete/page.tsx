@@ -38,7 +38,7 @@ export default function DeletePost() {
   }, []);
 
   const findPosts = async (token: string) => {
-    const url: string = 'https://avd-blog-api.fly.dev/api/user/posts';
+    const url: string = 'https://avd-blog-api.fly.dev/api/user/posts/all';
     try {
       const findPosts = await fetch(url, {
         method: 'GET',
