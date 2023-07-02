@@ -1,9 +1,9 @@
 'use client';
 
-import { FC, useState, useRef } from 'react';
+import { FC, useState, useRef, useEffect } from 'react';
 import styles from '../page.module.css';
 import Link from 'next/link';
-import { UpdatePostProps, TagType } from '@/types/interfaces';
+import { UpdatePostProps, TagType, PostFormCommentsState, Comment } from '@/types/interfaces';
 import uniqid from 'uniqid';
 import closeBox from '../../public/close-box.svg';
 import Filter from 'bad-words';
@@ -22,6 +22,37 @@ const UpdatePostForm: FC<UpdatePostProps> = (props) => {
   const [apiResponse, setApiResponse] = useState({
     message: '',
   });
+
+  const [fetchedComments, setFetchedComments] = useState<PostFormCommentsState>({
+    comments: [],
+  });
+
+  useEffect(() => {
+    fetchComments();
+  }, []);
+
+  const fetchComments = async () => {
+    const postId = post._id;
+    const url = `https://avd-blog-api.fly.dev/api/post/${postId}/comments`;
+    const comments = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+      },
+    });
+    const response = await comments.json();
+    if (response.comments) {
+      // comments found
+      setFetchedComments({
+        comments: response.comments,
+      });
+    } else {
+      // comments not retrieved
+      setFetchedComments({
+        comments: [],
+      });
+    };
+  };
 
   const handleAddTag = () => {
     const tag = document.querySelector('#tags');
@@ -111,6 +142,24 @@ const UpdatePostForm: FC<UpdatePostProps> = (props) => {
           message: `${error}`,
         });
       };
+    };
+  };
+
+  const handleRemoveComment = async (comment: Comment) => {
+    const token = typeof window !== "undefined" ? sessionStorage.getItem("token") : false;
+    if (!token) {
+      alert('You can not submit a post until you are logged in to our API');
+    } else {
+      const apiURL = `https://avd-blog-api.fly.dev/api/post/${post._id}/comment/remove/${comment._id}`;
+      const sendComment = await fetch(apiURL, {
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        method: 'DELETE',
+      });
+      const response = await sendComment.json();
+      console.log(response);
     };
   };
 
@@ -209,6 +258,26 @@ const UpdatePostForm: FC<UpdatePostProps> = (props) => {
                 src={closeBox}
                 onClick={() => handleRemoveTag(tags.list.indexOf(tag))}
               ></img>
+            </div>
+          })}
+        </div>
+
+        <div className={styles.commentsUpdateContainer}>
+          {fetchedComments.comments.map((comment) => {
+            return <div key={comment._id} className={styles.commentContainer}>
+              <div className={styles.commentInfoData}>
+                <p className={styles.commentAuthor}>
+                  <strong>{comment.author}</strong>
+                </p>
+                <p className={styles.commentText}>
+                  {comment.comment}
+                </p>
+              </div>
+              <img 
+                src={'/delete-empty.svg'} 
+                className={styles.deleteIcon}
+                onClick={(comment) => handleRemoveComment((comment as any))}>
+              </img>
             </div>
           })}
         </div>

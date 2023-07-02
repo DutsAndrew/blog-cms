@@ -153,6 +153,33 @@
   font-size: 1em;
 }
 
+.commentsUpdateContainer {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  gap: 0.5vh;
+  overflow-x: hidden;
+}
+
+.commentContainer {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 99%;
+  height: auto;
+  padding: 0.5vh;
+  background-color: grey;
+  border-radius: 15px;
+}
+
+.commentInfoData {
+  font-size: 1em;
+}
+
 /* DELETE POST LIST */
 
 .deleteIcon {

@@ -100,12 +100,10 @@ export default function UpdatePost() {
     });
   };
 
-  if (updateRequested.status === true) {
-    if (updateRequested.post !== null) {
-      return (
-        <UpdatePostForm post={updateRequested.post} exitForm={exitUpdateForm} />
-      );
-    };
+  if (updateRequested.status === true && updateRequested.post !== null) {
+    return (
+      <UpdatePostForm post={updateRequested.post} exitForm={exitUpdateForm} />
+    );
   } else if (posts.list.length !== 0 && apiResponse.foundPosts === true) {
     return (
       <section className={styles.updatePostContainer}>

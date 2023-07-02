@@ -32,6 +32,10 @@ interface UpdatePostProps {
   exitForm: Function,
 };
 
+interface PostFormCommentsState {
+  comments: Comment[] | [],
+}
+
 interface UpdateRequestedState {
   status: boolean,
   post: {
@@ -110,6 +114,7 @@ export {
   type UserPostsState,
   type UpdatePostProps,
   type UpdateRequestedState,
+  type PostFormCommentsState,
   type Post,
   type Comment,
   type DeleteCommentState,
