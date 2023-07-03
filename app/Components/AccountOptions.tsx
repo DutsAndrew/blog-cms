@@ -7,14 +7,6 @@ const AccountOptions: FC = (): JSX.Element => {
 
   const accountOperation = [
     {
-      title: "Delete a Comment",
-      route: "/account/delete/comment"
-    },
-    {
-      title: "Delete all Comments",
-      route: "/account/delete/comments"
-    },
-    {
       title: "Update Account Information",
       route: "/account/update"
     },
