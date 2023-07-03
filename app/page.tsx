@@ -73,6 +73,10 @@ export default function Home() {
     };
   };
 
+  const handleOpenClientTab = () => {
+    window.open("https://dutsandrew-blog-client.vercel.app/", "_blank");
+  };
+
   if (auth.token === true) {
     return (
       <div className={styles.mainPageContainer}>
@@ -90,6 +94,11 @@ export default function Home() {
             </Link>
           })}
         </main>
+        <button 
+          className={styles.switchToClientButton}
+          onClick={() => handleOpenClientTab()}>
+            Open Client
+        </button>
       </div>
     );
   } else {
@@ -109,6 +118,11 @@ export default function Home() {
             </div>
           })}
         </main>
+        <button 
+          className={styles.switchToClientButton}
+          onClick={() => handleOpenClientTab()}>
+            Open Client
+        </button>
       </div>
     );
   };

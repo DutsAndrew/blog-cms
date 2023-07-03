@@ -1,5 +1,6 @@
 .pageContainer {
-  width: 100vw;
+  padding: 0;
+  margin: 0;
 }
 
 .cmsCardsContainer {
@@ -39,7 +40,7 @@
   border: 2px solid black;
   font-size: 2em;
   border-radius: 15px;
-  background-color: red;
+  background-color: darkgray;
 }
 
 .operationContainer:hover, .notAuthorizedCards:hover {
@@ -255,4 +256,24 @@
 
 .tagsInput {
   max-width: 10vw;
+}
+
+.switchToClientButton {
+  max-width: 10vw;
+  min-width: 5vw;
+  font-size: 1.5em;
+  padding: 0.5vw;
+  margin: 0.5vh;
+  height: auto;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+  background-color: #FFA500;
+  border-radius: 50px;
+}
+
+.switchToClientButton:hover {
+  cursor: pointer;
+  transform: scale(0.9);
 }

@@ -1,5 +1,5 @@
 body {
-  overflow-x: hidden;
+  max-width: 100vw;
 }
 
 button:hover {
@@ -26,6 +26,7 @@ button:hover {
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid black;
+  background-color: #FFA500;
 }
 
 .header-logo-container {
@@ -86,5 +87,5 @@ input {
   margin: 0;
   margin-left: 1vw;
   border-radius: 15px;
-  font-size: 1.25em;
+  font-size: 1.75em;
 }
