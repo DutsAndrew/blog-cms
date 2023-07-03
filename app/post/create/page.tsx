@@ -99,32 +99,41 @@ export default function CreatePost() {
   };
 
   return (
-    <section className="create-post-container">
+    <section className={styles.createPostContainer}>
       <h1 className={styles.headerTitle}>Create a Post</h1>
       <Link href={'/'}>
-        <button className="return-btn">
+        <button className={styles.returnButton}>
           Return to Home
         </button>
       </Link>
 
       <form 
-        className='create-post-form'
+        className={styles.createPostForm}
         onSubmit={(e) => handleFormSubmission(e)}
       >
-        <div className='form-group'>
+        <div className={styles.formGroup}>
           <label htmlFor='title'>
             *Title:
           </label>
-          <input name="title" id='title' type="text"></input>
+          <input 
+            name="title"
+            id='title'
+            type="text">
+          </input>
         </div>
 
-        <div className='form-group'>
+        <div className={styles.formGroup}>
           <label htmlFor='tags'>
             Tags:
           </label>
-          <input name="tags" id='tags' type="text"></input>
+          <input 
+            className={styles.tagsInput}
+            name="tags"
+            id='tags'
+            type="text">
+          </input>
           <button 
-            className='add-tag-btn'
+            className={styles.addTagButton}
             type='button'
             onClick={() => handleAddTag()}
           >
@@ -160,6 +169,7 @@ export default function CreatePost() {
           id='body'
           init={{
             height: 500,
+            width: "99vw",
             menubar: false,
             plugins: [
               'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
@@ -176,7 +186,7 @@ export default function CreatePost() {
 
         <button 
           type='submit'
-          className='form-submit-btn'
+          className={styles.submitButton}
         >
           Submit Post
         </button>

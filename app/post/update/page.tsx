@@ -1,7 +1,7 @@
 'use client';
 
-import { use, useEffect, useState } from 'react';
-import styles from '../../page.module.css';
+import { useEffect, useState } from 'react';
+import styles from '../../page.module.css'
 import Link from 'next/link';
 import UpdatePostForm from '@/app/Components/UpdatePostForm';
 import parse from 'html-react-parser';
@@ -125,10 +125,10 @@ export default function UpdatePost() {
     );
   } else if (posts.list.length !== 0 && apiResponse.foundPosts === true) {
     return (
-      <section className={styles.updatePostContainer}>
+      <section className={styles.updatePostListContainer}>
         <h1 className={styles.headerTitle}>Update a Post</h1>
         <Link href={'/'}>
-          <button className="return-btn">
+          <button className={styles.returnButton}>
             Return to Home
           </button>
         </Link>
@@ -176,7 +176,7 @@ export default function UpdatePost() {
       <section className={styles.updatePostContainer}>
         <h1 className={styles.headerTitle}>Update a Post</h1>
         <Link href={'/'}>
-          <button className="return-btn">
+          <button className={styles.returnButton}>
             Return to Home
           </button>
         </Link>

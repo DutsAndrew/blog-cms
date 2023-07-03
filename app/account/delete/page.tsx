@@ -51,10 +51,10 @@ const DeleteAccount = () => {
   };
 
   return (
-    <section className={styles.deleteCommentContainer}>
-      <h1 className={styles.headerTitle}>Delete a comment</h1>
+    <section className={styles.deleteAccountContainer}>
+      <h1 className={styles.headerTitle}>Delete Account</h1>
         <Link href={'/'}>
-          <button className="return-btn">
+          <button className={styles.returnButton}>
             Return to Home
           </button>
         </Link>
@@ -70,14 +70,14 @@ const DeleteAccount = () => {
         </div>
 
         <form 
-          className={styles.accountUpdateForm}
+          className={styles.deleteAccountForm}
           onSubmit={(e) => handleAccountUpdateFormSubmit(e)}
         >
           <div className={styles.formGroup}>
             <label htmlFor="deleteAccount">
-              Are you sure you want to delete your account?:
+              Are you sure you want to delete your account?
               <button 
-                className={styles.accountUpdateFormBtn}
+                className={styles.submitButton}
                 type="submit"
               >
                 Yes, Delete My Account

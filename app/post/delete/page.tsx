@@ -130,7 +130,7 @@ export default function DeletePost() {
       <section className={styles.updatePostContainer}>
         <h1 className={styles.headerTitle}>Delete a Post</h1>
         <Link href={'/'}>
-          <button className="return-btn">
+          <button className={styles.returnButton}>
             Return to Home
           </button>
         </Link>
@@ -148,7 +148,7 @@ export default function DeletePost() {
       <section className={styles.updatePostContainer}>
         <h1 className={styles.headerTitle}>Delete a Post</h1>
         <Link href={'/'}>
-          <button className="return-btn">
+          <button className={styles.returnButton}>
             Return to Home
           </button>
         </Link>

@@ -191,3 +191,57 @@
   transform: scale(1.1);
   cursor: pointer;
 }
+
+.deleteAccountContainer, .passwordChangeContainer, .accountManagementContainer, .updatePostFormContainer, .updatePostListContainer, .updatePostContainer, .createPostContainer, .loginContainer {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 1.5vh;
+}
+
+.headerTitle, .loginHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3em;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.postsContainer, .deleteAccountForm, .passwordChangeForm, .accountUpdateForm, .createPostForm, .loginAccountForm {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  height: auto;
+  gap: 2vh;
+}
+
+.formGroup {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 1vw;
+  margin: 0;
+  width: 50%;
+}
+
+.returnButtonContainer {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 2vw;
+}
+
+.returnButton, .loginButton, .addTagButton, .submitButton {
+  width: 15vw;
+  height: auto;
+  font-size: 1.25em;
+  border-radius: 15px;
+}
+
+.tagsInput {
+  max-width: 10vw;
+}

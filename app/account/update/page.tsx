@@ -162,10 +162,10 @@ const UpdateAccount = () => {
   };
 
   return (
-    <section className={styles.deleteCommentContainer}>
-      <h1 className={styles.headerTitle}>Delete a comment</h1>
+    <section className={styles.accountManagementContainer}>
+      <h1 className={styles.headerTitle}>Change Account Information</h1>
         <Link href={'/'}>
-          <button className="return-btn">
+          <button className={styles.returnButton}>
             Return to Home
           </button>
         </Link>
@@ -230,7 +230,7 @@ const UpdateAccount = () => {
           </div>
 
           <button 
-            className={styles.accountUpdateFormBtn}
+            className={styles.submitButton}
             type="submit"
           >
             Update Account

@@ -1,11 +1,12 @@
 import Link from 'next/link';
+import styles from '../page.module.css';
 import AccountOptions from '../Components/AccountOptions';
 
 export default function AccountManagement() {
   return (
-    <section className="account-management-container">
+    <section className={styles.accountManagementContainer}>
       <Link href={'/'}>
-        <button className="return-btn">
+        <button className={styles.returnButton}>
           Return to Home
         </button>
       </Link>

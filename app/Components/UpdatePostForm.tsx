@@ -3,7 +3,7 @@
 import { FC, useState, useRef, useEffect } from 'react';
 import styles from '../page.module.css';
 import Link from 'next/link';
-import { UpdatePostProps, TagType, PostFormCommentsState, Comment } from '@/types/interfaces';
+import { UpdatePostProps, TagType, PostFormCommentsState } from '@/types/interfaces';
 import uniqid from 'uniqid';
 import closeBox from '../../public/close-box.svg';
 import Filter from 'bad-words';
@@ -180,17 +180,17 @@ const UpdatePostForm: FC<UpdatePostProps> = (props) => {
   };
 
   return (
-    <section className="update-post-container">
+    <section className={styles.updatePostFormContainer}>
       <h1 className={styles.headerTitle}>Update a Post</h1>
-      <div className='return-button-container'>
+      <div className={styles.returnButtonContainer}>
         <Link href={'/'}>
-          <button className="return-btn">
+          <button className={styles.returnButton}>
             Return to Home
           </button>
         </Link>
         
         <button 
-          className="return-btn"
+          className={styles.returnButton}
           onClick={() => exitForm()}
         >
           Return to Update Page
@@ -205,10 +205,10 @@ const UpdatePostForm: FC<UpdatePostProps> = (props) => {
       </div>
 
       <form 
-        className='create-post-form'
+        className={styles.updatePostFormContainer}
         onSubmit={(e) => handleFormUpdateSubmission(e)}
       >
-        <div className='form-group'>
+        <div className={styles.formGroup}>
           <label htmlFor='title'>
             *Title:
           </label>
@@ -220,7 +220,7 @@ const UpdatePostForm: FC<UpdatePostProps> = (props) => {
           </input>
         </div>
 
-        <div className='form-group'>
+        <div className={styles.formGroup}>
           <label htmlFor='body'>
             *Body:
           </label>
@@ -232,6 +232,7 @@ const UpdatePostForm: FC<UpdatePostProps> = (props) => {
           id='body'
           init={{
             height: 500,
+            width: "99vw",
             menubar: false,
             plugins: [
               'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
@@ -247,13 +248,18 @@ const UpdatePostForm: FC<UpdatePostProps> = (props) => {
         />
         </div>
 
-        <div className='form-group'>
+        <div className={styles.formGroup}>
           <label htmlFor='tags'>
             Tags:
           </label>
-          <input name="tags" id='tags' type="text"></input>
+          <input 
+            className={styles.tagsInput}
+            name="tags"
+            id='tags'
+            type="text">
+          </input>
           <button 
-            className='add-tag-btn'
+            className={styles.addTagButton}
             type='button'
             onClick={() => handleAddTag()}
           >
@@ -301,7 +307,7 @@ const UpdatePostForm: FC<UpdatePostProps> = (props) => {
 
         <button 
           type='submit'
-          className='form-submit-btn'
+          className={styles.submitButton}
         >
           Submit Post
         </button>

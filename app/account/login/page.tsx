@@ -63,10 +63,10 @@ export default function Login() {
   };
 
   return (
-    <section className="login-container">
-      <h1 className='header-title'>Log In</h1>
+    <section className={styles.loginContainer}>
+      <h1 className={styles.loginHeader}>Log In</h1>
       <Link href={'/'}>
-        <button className="return-btn">
+        <button className={styles.returnButton}>
           Return to Home
         </button>
       </Link>
@@ -79,31 +79,31 @@ export default function Login() {
       </div>
 
       <form 
-        className='login-account-form'
+        className={styles.loginAccountForm}
         onSubmit={(e) => handleFormSubmission(e)}
       >
-        <div className='form-group'>
+        <div className={styles.formGroup}>
           <label htmlFor='email'>
             *Email:
           </label>
           <input name="email" id='email' type="email"></input>
         </div>
 
-        <div className='form-group'>
+        <div className={styles.formGroup}>
           <label htmlFor='password'>
             *Password:
           </label>
           <input name="password" id='password' type="password"></input>
         </div>
 
-        <div className='form-group'>
+        <div className={styles.formGroup}>
           <label htmlFor='confirmPassword'>
             *Confirm Password:
           </label>
           <input name="confirmPassword" id='confirmPassword' type="password"></input>
         </div>
 
-        <button type='submit'>
+        <button className={styles.loginButton} type='submit'>
           Login
         </button>
       </form>

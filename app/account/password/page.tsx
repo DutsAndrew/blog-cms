@@ -72,10 +72,10 @@ const ChangePassword = () => {
   };
 
   return (
-    <section className={styles.deleteCommentContainer}>
-      <h1 className={styles.headerTitle}>Delete a comment</h1>
+    <section className={styles.passwordChangeContainer}>
+      <h1 className={styles.headerTitle}>Change Password</h1>
         <Link href={'/'}>
-          <button className="return-btn">
+          <button className={styles.returnButton}>
             Return to Home
           </button>
         </Link>
@@ -88,7 +88,7 @@ const ChangePassword = () => {
         </div>
 
         <form 
-          className={styles.accountUpdateForm}
+          className={styles.passwordChangeForm}
           onSubmit={(e) => handleAccountUpdateFormSubmit(e)}
         >
           <div className={styles.formGroup}>
@@ -125,7 +125,7 @@ const ChangePassword = () => {
           </div>
 
           <button 
-            className={styles.accountUpdateFormBtn}
+            className={styles.submitButton}
             type="submit"
           >
             Change Password
