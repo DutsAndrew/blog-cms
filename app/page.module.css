@@ -1,3 +1,7 @@
+.pageContainer {
+  width: 100vw;
+}
+
 .cmsCardsContainer {
   margin: 0;
   margin-top: 3%;
@@ -5,8 +9,8 @@
   flex-flow: row wrap;
   justify-content: center;
   align-items: center;
-  gap: 5vw;
-  max-width: 90vw;
+  gap: 10vw;
+  width: 100%;
 }
 
 .operationContainer {
@@ -14,11 +18,12 @@
   flex: auto;
   justify-content: center;
   align-items: center;
-  max-width: 40vw;
-  min-width: 20vw;
+  max-width: 45vw;
+  min-width: 25vw;
   max-height: 40vh;
   min-height: 20vh;
   border: 2px solid black;
+  font-size: 2em;
   border-radius: 15px;
 }
 
@@ -27,11 +32,12 @@
   flex: auto;
   justify-content: center;
   align-items: center;
-  max-width: 40vw;
-  min-width: 20vw;
+  max-width: 45vw;
+  min-width: 25vw;
   max-height: 40vh;
   min-height: 20vh;
   border: 2px solid black;
+  font-size: 2em;
   border-radius: 15px;
   background-color: red;
 }
@@ -105,7 +111,7 @@
   flex-flow: column nowrap;
   justify-content: flex-start;
   align-items: center;
-  border: 2px solid yellow;
+  border: 2px solid burlywood;
   margin: 0.5vh;
   padding: 0.5vh;
 }
@@ -140,7 +146,7 @@
 }
 
 .postContainer:hover {
-  background-color: yellow;
+  background-color: burlywood;
   transform: scale(0.999);
   cursor: pointer;
 }
@@ -169,10 +175,10 @@
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
-  width: 99%;
+  width: 50%;
   height: auto;
   padding: 0.5vh;
-  background-color: grey;
+  background-color: white;
   border-radius: 15px;
 }
 
@@ -192,10 +198,11 @@
   cursor: pointer;
 }
 
-.deleteAccountContainer, .passwordChangeContainer, .accountManagementContainer, .updatePostFormContainer, .updatePostListContainer, .updatePostContainer, .createPostContainer, .loginContainer {
+.signUpContainer, .deleteAccountContainer, .passwordChangeContainer, .accountManagementContainer, .updatePostFormContainer, .updatePostListContainer, .updatePostContainer, .createPostContainer, .loginContainer {
   display: flex;
   flex-flow: column nowrap;
   gap: 1.5vh;
+  width: 99%;
 }
 
 .headerTitle, .loginHeader {
@@ -208,7 +215,7 @@
   width: 100%;
 }
 
-.postsContainer, .deleteAccountForm, .passwordChangeForm, .accountUpdateForm, .createPostForm, .loginAccountForm {
+.createAccountForm, .postsContainer, .deleteAccountForm, .passwordChangeForm, .accountUpdateForm, .createPostForm, .loginAccountForm {
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
@@ -240,6 +247,10 @@
   height: auto;
   font-size: 1.25em;
   border-radius: 15px;
+}
+
+.addTagButton {
+  margin-left: 1vw;
 }
 
 .tagsInput {

@@ -1,4 +1,5 @@
 import './globals.css';
+import styles from  './page.module.css';
 
 export const metadata = {
   title: 'Blog CMS',
@@ -18,7 +19,7 @@ export default function RootLayout({
         <link rel='icon' type='image/png' href='/favicon.png' />
       </head>
       <body>
-        <section className='section-container'>
+        <section className={styles.pageContainer}>
           {children}
         </section>
       </body>

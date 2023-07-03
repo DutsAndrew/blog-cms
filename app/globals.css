@@ -1,3 +1,7 @@
+body {
+  overflow-x: hidden;
+}
+
 button:hover {
   cursor: pointer;
 }
@@ -13,6 +17,7 @@ button:hover {
   flex-flow: column wrap;
   justify-content: center;
   align-items: center;
+  width: 100vw;
 }
 
 .header-container {
@@ -54,11 +59,22 @@ button:hover {
   border: 1px solid black;
 }
 
+form {
+  display: flex;
+  flex-flow: column nowrap;
+  background-color: burlywood;
+  padding: 2vh;
+  gap: 1.5vh;
+  width: 100%;
+  height: auto;
+  border-radius: 15px;
+}
+
 label {
   border-left: 1px solid black;
   padding: 0;
   margin: 0;
-  padding-left: 0.25vw;
+  padding-left: 0.5vw;
   font-size: 2em;
   width: auto;
 }
@@ -66,6 +82,9 @@ label {
 input {
   min-width: 20vw;
   height: 3.5vh;
+  padding: 1vh;
+  margin: 0;
+  margin-left: 1vw;
   border-radius: 15px;
   font-size: 1.25em;
 }

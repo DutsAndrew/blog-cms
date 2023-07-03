@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import styles from '../../page.module.css';
 import { FormEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
@@ -80,60 +81,62 @@ export default function SignUp() {
   };
 
   return (
-    <section className="signup-container">
-      <h1 className='header-title'>Sign Up</h1>
+    <section className={styles.signUpContainer}>
+      <h1 className={styles.headerTitle}>Sign Up</h1>
       <Link href={'/'}>
-        <button className="return-btn">
+        <button className={styles.returnButton}>
           Return to Home
         </button>
       </Link>
       <form 
-        className='create-account-form'
+        className={styles.createAccountForm}
         onSubmit={(e) => handleFormSubmission(e)}
       >
-        <div className='form-group'>
+        <div className={styles.formGroup}>
           <label htmlFor='email'>
             *Email:
           </label>
           <input name="email" id='email' type="email"></input>
         </div>
 
-        <div className='form-group'>
+        <div className={styles.formGroup}>
           <label htmlFor='firstName'>
             *First Name:
           </label>
           <input name="firstName" id='firstName' type="text"></input>
         </div>
 
-        <div className='form-group'>
+        <div className={styles.formGroup}>
           <label htmlFor='lastName'>
             *Last Name:
           </label>
           <input name="lastName" id='lastName' type="text"></input>
         </div>
 
-        <div className='form-group'>
+        <div className={styles.formGroup}>
           <label htmlFor='location'>
             *Location:
           </label>
           <input name="location" id='location' type="text"></input>
         </div>
 
-        <div className='form-group'>
+        <div className={styles.formGroup}>
           <label htmlFor='password'>
             *Password:
           </label>
           <input name="password" id='password' type="password"></input>
         </div>
 
-        <div className='form-group'>
+        <div className={styles.formGroup}>
           <label htmlFor='confirmPassword'>
             *Confirm Password:
           </label>
           <input name="confirmPassword" id='confirmPassword' type="password"></input>
         </div>
 
-        <button type='submit'>
+        <button 
+          className={styles.submitButton}
+          type='submit'>
           Create Account
         </button>
       </form>
