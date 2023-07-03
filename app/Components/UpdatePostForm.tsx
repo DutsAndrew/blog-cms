@@ -11,7 +11,7 @@ import { Editor } from '@tinymce/tinymce-react';
 
 const UpdatePostForm: FC<UpdatePostProps> = (props) => {
 
-  const { post, exitForm } = props;
+  const { post, exitForm, handleRemoveCommentFromPostList } = props;
 
   const editorRef = useRef(null);
 
@@ -30,6 +30,10 @@ const UpdatePostForm: FC<UpdatePostProps> = (props) => {
   useEffect(() => {
     fetchComments();
   }, []);
+
+  useEffect(() => {
+    // rerender change to comments
+  }, [fetchedComments]);
 
   const fetchComments = async () => {
     const postId = post._id;
@@ -145,12 +149,12 @@ const UpdatePostForm: FC<UpdatePostProps> = (props) => {
     };
   };
 
-  const handleRemoveComment = async (comment: Comment) => {
+  const handleRemoveComment = async (commentId: string) => {
     const token = typeof window !== "undefined" ? sessionStorage.getItem("token") : false;
     if (!token) {
       alert('You can not submit a post until you are logged in to our API');
     } else {
-      const apiURL = `https://avd-blog-api.fly.dev/api/post/${post._id}/comment/remove/${comment._id}`;
+      const apiURL = `https://avd-blog-api.fly.dev/api/post/${post._id}/comment/remove/${commentId}`;
       const sendComment = await fetch(apiURL, {
         headers: {
           'Accept': 'application/json',
@@ -159,7 +163,19 @@ const UpdatePostForm: FC<UpdatePostProps> = (props) => {
         method: 'DELETE',
       });
       const response = await sendComment.json();
-      console.log(response);
+      if (response.post) {
+        // comment removed
+        handleRemoveCommentFromPostList(post._id, commentId);
+
+        // remove comment locally
+        const commentListToChange: any[] = fetchedComments.comments;
+        commentListToChange.splice(commentListToChange.indexOf(commentId), 1);
+        setFetchedComments({
+          comments: commentListToChange,
+        });
+      } else {
+        alert(`${response.message}`);
+      }
     };
   };
 
@@ -276,7 +292,8 @@ const UpdatePostForm: FC<UpdatePostProps> = (props) => {
               <img 
                 src={'/delete-empty.svg'} 
                 className={styles.deleteIcon}
-                onClick={(comment) => handleRemoveComment((comment as any))}>
+                id={comment._id}
+                onClick={(e) => handleRemoveComment(((e.target as any).id))}>
               </img>
             </div>
           })}

@@ -30,6 +30,7 @@ interface UpdatePostProps {
     _id: string,
   },
   exitForm: Function,
+  handleRemoveCommentFromPostList: Function,
 };
 
 interface PostFormCommentsState {

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import styles from '../../page.module.css';
 import Link from 'next/link';
 import UpdatePostForm from '@/app/Components/UpdatePostForm';
@@ -100,9 +100,28 @@ export default function UpdatePost() {
     });
   };
 
+  const handleRemoveCommentFromPostList = (postId: string, commentId: string): void => {
+    const currentPosts = posts.list;
+    const postToChange = currentPosts.find(post => post._id === postId);
+    const postIndex = currentPosts.indexOf(postToChange);
+
+    postToChange.comments.splice(postToChange.comments.indexOf(commentId), 1);
+    
+    currentPosts[postIndex] = postToChange;
+
+    setUpdateRequested({
+      status: true,
+      post: postToChange,
+    });
+  };
+
   if (updateRequested.status === true && updateRequested.post !== null) {
     return (
-      <UpdatePostForm post={updateRequested.post} exitForm={exitUpdateForm} />
+      <UpdatePostForm 
+        post={updateRequested.post} 
+        exitForm={exitUpdateForm}
+        handleRemoveCommentFromPostList={handleRemoveCommentFromPostList}
+      />
     );
   } else if (posts.list.length !== 0 && apiResponse.foundPosts === true) {
     return (
